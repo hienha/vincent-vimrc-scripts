@@ -1,3 +1,19 @@
+ " __  __        __     ___
+" |  \/  |_   _  \ \   / (_)_ __ ___  _ __ ___
+" | |\/| | | | |  \ \ / /| | '_ ` _ \| '__/ __|
+" | |  | | |_| |   \ V / | | | | | | | | | (__
+" |_|  |_|\__, |    \_/  |_|_| |_| |_|_|  \___|
+"         |___/
+
+" ===
+" === Auto load for first time use it
+" ===
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " vim-plug
 call plug#begin('~/.vim/plugged')
 
@@ -70,9 +86,6 @@ syntax on
 set number
 set relativenumber
 set cursorline
-" 保证字符不会超出当前窗口
-set wrap 
-set showcmd
 " 命令模式下之按TAB来选择要使用的命令
 set wildmenu
 
@@ -87,31 +100,69 @@ set nocompatible
 set mouse=a
 set encoding=utf-8
 
-" 缩进相关
+" ===
+" === Editor behavior
+" ===
+" Better tab 缩进相关
 set expandtab
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
-
 " 显示隐藏字符
 set list
 set listchars=tab:▶\ ,trail:.
+" 屏幕滚动上、下都保留5行
 set scrolloff=5
+
+" Prevent auto line split
+set wrap 
 set tw=0
+
 set indentexpr=
+
+" Better backspace
 set backspace=indent,eol,start
+
 set foldmethod=indent
 set foldlevel=99
-set laststatus=2
-set autochdir
-
-" vim 颜色配置相关
-let &t_ut=''
 
 " 启动不同的光标样式
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+
+" ===
+" === Window behaviors
+" ===
+set splitright
+set splitbelow
+
+" ===
+" === Status/command bar
+" ===
+set laststatus=2
+set autochdir
+set showcmd
+set formatoptions-=tc
+
+"===
+"=== Other useful stuff
+"===
+" <++> is a placeholder, in normol mode just press twise space to find next <++> and income to edit mode
+" there i map to l, means change forward 4 chars
+map <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4i
+
+" Call figlet
+map tx :r !figlet 
+
+" ===
+" === Spelling Check with <space>sc
+" ===
+map <LEADER>sc :set spell!<CR>
+
+" ===" vim 颜色配置相关
+let &t_ut=''
+
 
 " 下次打开文件时，光标回到上一次退出时的位置
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exec "normal! g'\"" | endif
@@ -154,14 +205,25 @@ set ignorecase
 set smartcase
 
 noremap = nzz
-noremap - nzz
+noremap - Nzz
 
+" Find Duplicate words
+map <LEADER>fd /\(\<\w\+\>\)\_s*\1
 
-" Split Wondow
-map sv  :set splitright<CR>:vsplit<CR>
-map snv :set nosplitright<CR>:vsplit<CR>
-map sh  :set splitbelow<CR>:split<CR>
-map snh :set nosplitbelow<CR>:split<CR>
+" Others
+map <LEADER>o o<Esc>u
+
+" Split Window
+map si  :set splitright<CR>:vsplit<CR>
+map sni :set nosplitright<CR>:vsplit<CR>
+map se  :set splitbelow<CR>:split<CR>
+map sne :set nosplitbelow<CR>:split<CR>
+
+" You can only operate in multiple Window
+" sv: change vertical window split to horizontal
+" sh: change horizontal window split to vertical
+map sv <C-w>t<C-w>H
+map sh <C-w>t<C-w>K
 
 " keyboard shortcuts
 noremap <C-h> <C-w>h
@@ -169,7 +231,7 @@ noremap <C-n> <C-w>j
 noremap <C-e> <C-w>k
 noremap <C-i> <C-w>l
 
-" Resize split window seze
+" Resize split window size
 
 map <up>    :resize +5<CR>
 map <down>  :resize -5<CR>
