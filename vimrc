@@ -18,6 +18,9 @@ endif
 call plug#begin('~/.vim/plugged')
 
 Plug 'vim-airline/vim-airline'
+
+" Themes
+Plug 'dracula/vim'
 Plug 'connorholyday/vim-snazzy'
 
 " File navigation
@@ -46,6 +49,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 Plug 'gisphm/vim-gitignore', { 'for': ['gitignore', 'vim-plug'] }
 
+" CrtlP
+Plug 'ctrlpvim/ctrlp.vim'
+
 " HTML, CSS, JavaScript, PHP, JSON, etc.
 Plug 'elzr/vim-json'
 Plug 'hail2u/vim-css3-syntax'
@@ -56,6 +62,7 @@ Plug 'mattn/emmet-vim'
 
 " Python
 Plug 'vim-scripts/indentpython.vim'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
@@ -71,7 +78,7 @@ Plug 'junegunn/goyo.vim' " distraction free writing mode
 Plug 'tpope/vim-surround' " type ysks' to wrap the word with '' or type cs'` to change 'word' to `word`
 Plug 'godlygeek/tabular' " type ;Tabularize /= to align the =
 Plug 'gcmt/wildfire.vim' " in Visual mode, type i' to select all text in '', or type i) i] i} ip
-Plug 'scrooloose/nerdcommenter' " in <space>cc to comment a line
+Plug 'scrooloose/nerdcommenter' " in <space>cc to comment a line or select area, `<leader>c<leader>' to (uncomment) toggle commented state.
 
 " Dependencies
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -170,7 +177,8 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exec "normal! 
 " Theme
 "  Window Transparent
 " let g:SnazzyTransparent = 1
-colorscheme snazzy
+" colorscheme snazzy
+colorscheme dracula
 
 " 去掉工具栏、菜单栏
 set guioptions-=T
@@ -179,15 +187,15 @@ set guioptions-=m
 set guioptions-=lbr
 noremap <LEADER><CR> :nohlsearch<CR>
 
-noremap n j
-noremap N 5jzz
-noremap e k
-noremap E 5kzz
-noremap i l
-noremap u i
-noremap U I
-noremap l u
-noremap L U
+" noremap n j
+" noremap N 5jzz
+" noremap e k
+" noremap E 5kzz
+" noremap i l
+" noremap u i
+" noremap U I
+" noremap l u
+" noremap L U
 
 map ; :
 map s <nop>
@@ -214,10 +222,10 @@ map <LEADER>fd /\(\<\w\+\>\)\_s*\1
 map <LEADER>o o<Esc>u
 
 " Split Window
-map si  :set splitright<CR>:vsplit<CR>
-map sni :set nosplitright<CR>:vsplit<CR>
-map se  :set splitbelow<CR>:split<CR>
-map sne :set nosplitbelow<CR>:split<CR>
+map s/  :set splitright<CR>:vsplit<CR>
+map sn/ :set nosplitright<CR>:vsplit<CR>
+map s-  :set splitbelow<CR>:split<CR>
+map sn- :set nosplitbelow<CR>:split<CR>
 
 " You can only operate in multiple Window
 " sv: change vertical window split to horizontal
@@ -227,9 +235,9 @@ map sh <C-w>t<C-w>K
 
 " keyboard shortcuts
 noremap <C-h> <C-w>h
-noremap <C-n> <C-w>j
-noremap <C-e> <C-w>k
-noremap <C-i> <C-w>l
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
 
 " Resize split window size
 
@@ -282,8 +290,8 @@ nnoremap gr :YcmCompleter GoToReferences<CR>
 let g:ycm_autoclose_preview_window_after_completion=0
 let g:ycm_autoclose_preview_window_after_insertion=1
 let g:ycm_use_clangd = 0
-let g:ycm_python_interpreter_path = "/usr/local/bin/python3.7"
-let g:ycm_python_binary_path = "/usr/local/bin/python3.7"
+let g:ycm_python_interpreter_path = system('which python')
+let g:ycm_python_binary_path = system('which python')
 
 " ===
 " === ale
@@ -381,3 +389,8 @@ let g:SignatureMap = {
 let g:undotree_DiffAutoOpen = 0
 map L :UndotreeToggle<CR>
 
+set tags=~/.vim/tags/python.ctag
+set tags+=tags
+autocmd BufWritePost *.py silent! !ctags --exclude=.git --exclude='*.log' -R --python-kinds=-i --languages=python 2> /dev/null &
+
+set clipboard=unnamed
