@@ -290,8 +290,9 @@ nnoremap gr :YcmCompleter GoToReferences<CR>
 let g:ycm_autoclose_preview_window_after_completion=0
 let g:ycm_autoclose_preview_window_after_insertion=1
 let g:ycm_use_clangd = 0
+let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
 let g:ycm_python_interpreter_path = system('which python')
-let g:ycm_python_binary_path = system('which python')
+" let g:ycm_python_binary_path = system('which python')
 
 " ===
 " === ale
