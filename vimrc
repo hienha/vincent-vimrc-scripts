@@ -65,7 +65,8 @@ Plug 'vim-scripts/indentpython.vim'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 
 " Markdown
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
+" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] } " this only effective in neovim
+Plug 'iamcco/markdown-preview.vim'
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'vimwiki/vimwiki'
 
@@ -317,6 +318,7 @@ let g:mkdp_open_ip = ''
 let g:mkdp_browser = 'chromium'
 let g:mkdp_echo_preview_url = 0
 let g:mkdp_browserfunc = ''
+let g:mkdp_path_to_chrome = "open -a Google\\ Chrome"
 let g:mkdp_preview_options = {
     \ 'mkit': {},
     \ 'katex': {},
