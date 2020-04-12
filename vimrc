@@ -157,8 +157,8 @@ set formatoptions-=tc
 "=== Other useful stuff
 "===
 " <++> is a placeholder, in normol mode just press twise space to find next <++> and income to edit mode
-" there i map to l, means change forward 4 chars
-map <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4i
+" in colemak keyboard layout, there i map to l, means change forward 4 chars
+map <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
 " Call figlet
 map tx :r !figlet 
