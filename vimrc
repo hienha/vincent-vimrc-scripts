@@ -90,6 +90,9 @@ Plug 'fadein/vim-FIGlet'
 " Tags
 Plug 'ludovicchabant/vim-gutentags'
 
+" Youdao Translate
+Plug 'ianva/vim-youdao-translater'
+
 call plug#end()
 
 " Clipboard
@@ -464,3 +467,8 @@ func! RunCurrentBuffer()
         exec "!python %"
     endif
 endfunc
+
+" vim youdao translater
+vnoremap <silent> <C-T> :<C-u>Ydv<CR>
+nnoremap <silent> <C-T> :<C-u>Ydc<CR>
+noremap <leader>yd :<C-u>Yde<CR>
