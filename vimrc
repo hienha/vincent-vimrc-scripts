@@ -1,4 +1,4 @@
- " __  __        __     ___
+" __  __        __     ___
 " |  \/  |_   _  \ \   / (_)_ __ ___  _ __ ___
 " | |\/| | | | |  \ \ / /| | '_ ` _ \| '__/ __|
 " | |  | | |_| |   \ V / | | | | | | | | | (__
@@ -80,6 +80,7 @@ Plug 'tpope/vim-surround' " type ysks' to wrap the word with '' or type cs'` to 
 Plug 'godlygeek/tabular' " type ;Tabularize /= to align the =
 Plug 'gcmt/wildfire.vim' " in Visual mode, type i' to select all text in '', or type i) i] i} ip
 Plug 'scrooloose/nerdcommenter' " in <space>cc to comment a line or select area, `<leader>c<leader>' to (uncomment) toggle commented state.
+Plug 'kien/rainbow_parentheses.vim' " Better Rainbow Parentheses
 
 " Dependencies
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -87,6 +88,9 @@ Plug 'kana/vim-textobj-user'
 Plug 'fadein/vim-FIGlet'
 
 call plug#end()
+
+" Clipboard
+set clipboard=unnamed
 
 " vim 中 Leader 前缀键默认是 '\'
 let mapleader=" "
@@ -248,14 +252,16 @@ map <left>  :vertical resize -5<CR>
 map <right> :vertical resize +5<CR>
 
 " Tab
-map tu :tabedit<CR>
+map te :tabedit<CR>
 map tp :tabprevious<CR>
 map tn :tabnext<CR>
+map tc :tabclose(CR>
 
 " ===
 " === NERDTree
 " ===
 map tt :NERDTreeToggle<CR>
+let NERDTreeShowBookmarks=1
 let NERDTreeMapOpenExpl = ""
 let NERDTreeMapUpdir = ""
 let NERDTreeMapUpdirKeepOpen = "1"
@@ -266,6 +272,8 @@ let NERDTreeMapOpenInTab = "o"
 let NERDTreeMapPreview = ""
 let NERDTreeMapCloseDir = "n"
 let NERDTreeMapChangeRoot = "y"
+" If more than one window and previous buffer was NERDTree, go back to it.
+autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
 
 " ===
 " === NERDTree-git
@@ -387,13 +395,63 @@ let g:SignatureMap = {
         \ }
 
 " ===
+" === Rainbow Parentheses
+" ===
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+au VimEnter '*' RainbowParenthesesToggle
+au Syntax '*' RainbowParenthesesLoadRound
+au Syntax '*' RainbowParenthesesLoadSquare
+au Syntax '*' RainbowParenthesesLoadBraces
+
+" ===
 " === UndoTree
 " ===
 let g:undotree_DiffAutoOpen = 0
 map L :UndotreeToggle<CR>
 
-set tags=~/.vim/tags/python.ctag
-set tags+=tags
-autocmd BufWritePost *.py silent! !ctags --exclude=.git --exclude='*.log' -R --python-kinds=-i --languages=python 2> /dev/null &
+" ===
+" === Tags
+" ===
+" 所生成的数据文件的名称 "
+let g:gutentags_ctags_tagfile = '.tags'
 
-set clipboard=unnamed
+" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录 "
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+" 检测 ~/.cache/tags 不存在就新建 "
+if !isdirectory(s:vim_tags)
+    silent! call mkdir(s:vim_tags, 'p')
+endif
+set tags+=tags
+autocmd BufWritePost *.py silent! execute "!ctags --exclude=.git --exclude='*.log' -R --python-kinds=-i --languages=python 2> /dev/null &"
+autocmd BufWritePost *.c,*.cpp,*.h silent! execute "!ctags -R 2> /dev/null &"
+
+" ===
+" === Python
+" ===
+map <LEADER>r :call RunCurrentBuffer()<CR>
+func! RunCurrentBuffer()
+    exec "w"
+    if &filetype == 'python'
+        exec "!python %"
+    endif
+endfunc
