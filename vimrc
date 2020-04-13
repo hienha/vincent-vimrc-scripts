@@ -449,6 +449,8 @@ if !isdirectory(s:vim_tags)
 endif
 
 " 配置 ctags 的参数 "
+set statusline+=%{gutentags#statusline()}
+let g:gutentags_ctags_exclude = ["*.min.js", "*.min.css", "build", "vendor", ".git", "node_modules", "*.vim/plugged/*"]
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
