@@ -14,6 +14,10 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" Automatic reloading of .vimrc
+autocmd! BufWritePost .vimrc source %
+autocmd! BufWritePost vimrc source %
+
 " vim-plug
 call plug#begin('~/.vim/plugged')
 
@@ -76,6 +80,7 @@ Plug 'kshenoy/vim-signature'
 " Other useful utilities
 Plug 'terryma/vim-multiple-cursors'
 Plug 'junegunn/goyo.vim' " distraction free writing mode
+" References: https://github.com/tpope/vim-surround
 Plug 'tpope/vim-surround' " type ysks' to wrap the word with '' or type cs'` to change 'word' to `word`
 Plug 'godlygeek/tabular' " type ;Tabularize /= to align the =
 Plug 'gcmt/wildfire.vim' " in Visual mode, type i' to select all text in '', or type i) i] i} ip
@@ -93,10 +98,34 @@ Plug 'ludovicchabant/vim-gutentags'
 " Youdao Translate
 Plug 'ianva/vim-youdao-translater'
 
+" automatic closing of quotes
+Plug 'Raimondi/delimitMate'
+
+" Vim indent guides
+Plug 'nathanaelkane/vim-indent-guides'
+
+" vim-snipmate
+"  Plugin 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+" Optional:
+" References: https://github.com/garbas/vim-snipmate
+Plug 'honza/vim-snippets' 
+
+" vimwiki
+Plug 'vimwiki/vimwiki'
+
+" auto make directory
+Plug 'DataWraith/auto_mkdir'
+
 call plug#end()
 
 " Clipboard
 set clipboard=unnamed
+
+" CursorLine
+set cursorline
+set cursorcolumn
 
 " vim 中 Leader 前缀键默认是 '\'
 let mapleader=" "
@@ -111,6 +140,7 @@ set wildmenu
 " Recognise File Type
 filetype on
 filetype indent on
+filetype indent plugin on
 filetype plugin on
 filetype plugin indent on
 
@@ -189,6 +219,8 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exec "normal! 
 "  Window Transparent
 " let g:SnazzyTransparent = 1
 " colorscheme snazzy
+set t_Co=256
+set background=light
 colorscheme dracula
 
 " 去掉工具栏、菜单栏
@@ -261,7 +293,7 @@ map <right> :vertical resize +5<CR>
 map te :tabedit<CR>
 map tp :tabprevious<CR>
 map tn :tabnext<CR>
-map tc :tabclose(CR>
+map tc :tabclose<CR>
 
 " ===
 " === NERDTree
@@ -280,6 +312,27 @@ let NERDTreeMapCloseDir = "n"
 let NERDTreeMapChangeRoot = "y"
 " If more than one window and previous buffer was NERDTree, go back to it.
 autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
+
+" ===
+" === NERDCommenter
+" === https://github.com/preservim/nerdcommenter
+" ===
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+" Enable NERDCommenterToggle to check all selected lines is commented or not 
+let g:NERDToggleCheckAllLines = 1
 
 " ===
 " === NERDTree-git
@@ -365,6 +418,11 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_color_change_percent = 1
+let g:indent_guides_auto_colors = 1
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=white     ctermbg=3
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=lightgrey ctermbg=4
+hi IndentGuidesOdd  guibg=red   ctermbg=3
+hi IndentGuidesEven guibg=green ctermbg=4
 silent! unmap <LEADER>ig
 autocmd WinEnter * silent! unmap <LEADER>ig
 
@@ -474,3 +532,10 @@ endfunc
 vnoremap <silent> <C-T> :<C-u>Ydv<CR>
 nnoremap <silent> <C-T> :<C-u>Ydc<CR>
 noremap <leader>yd :<C-u>Yde<CR>
+
+" delimitMate
+let delimitMate_expand_cr = 1
+
+" Python下有一个红色的竖线，用来规范pep8，保证每行这符不超过80，这里设置为150
+set colorcolumn=150
+
