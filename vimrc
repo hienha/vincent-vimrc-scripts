@@ -247,6 +247,15 @@ map Q :q<CR>
 map Qa :qall<CR>
 map R :source $MYVIMRC<CR>
 
+" Command mode
+cmap      <C-a>    <home>
+cmap      <C-e>    <end>
+cnoremap  <C-b>    <left>
+cnoremap  <C-f>    <right>
+cnoremap  <C-n>    <down>
+cnoremap  <C-p>    <up>
+cnoremap  <C-d>    <del>
+
 " Search
 set hlsearch
 " exec "COMMAND"
