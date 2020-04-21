@@ -499,7 +499,7 @@ au Syntax '*' RainbowParenthesesLoadBraces
 " === UndoTree
 " ===
 let g:undotree_DiffAutoOpen = 0
-map L :UndotreeToggle<CR>
+map <LEADER>L :UndotreeToggle<CR>
 
 " ===
 " === Tags
