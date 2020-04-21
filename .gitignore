@@ -1,6 +1,6 @@
 .netrwhist
 
-.swp
+.*.sw*
 
 *.pyc
 .DS_Store
