@@ -71,6 +71,7 @@ Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 " Markdown
 " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] } " this only effective in neovim
 Plug 'iamcco/markdown-preview.vim'
+Plug 'mzlogin/vim-markdown-toc'
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'vimwiki/vimwiki'
 
@@ -118,6 +119,9 @@ Plug 'vimwiki/vimwiki'
 " auto make directory
 Plug 'DataWraith/auto_mkdir'
 
+" Usage :Smile
+Plug 'dstein64/vim-smile'
+
 call plug#end()
 
 " Clipboard
@@ -158,7 +162,7 @@ set shiftwidth=2
 set softtabstop=2
 " 显示隐藏字符
 set list
-set listchars=tab:▶\ ,trail:.
+set listchars=tab:▶\ ,trail:▬
 " 屏幕滚动上、下都保留5行
 set scrolloff=5
 
@@ -385,6 +389,14 @@ map <silent> T :TagbarOpenAutoClose<CR>
 " ===
 " === MarkdownPreview
 " ===
+" for normal mode
+nmap <silent> <LEADER>mp <Plug>MarkdownPreview
+" for insert mode
+nmap <silent> <LEADER>mp <Plug>MarkdownPreview
+" for normal mode
+nmap <silent> <LEADER>smp <Plug>StopMarkdownPreview
+" for insert mode
+nmap <silent> <LEADER>smp <Plug>StopMarkdownPreview
 let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 1
 let g:mkdp_refresh_slow = 0
