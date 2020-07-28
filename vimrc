@@ -390,6 +390,7 @@ map <silent> T :TagbarOpenAutoClose<CR>
 " === MarkdownPreview
 " ===
 " for normal mode
+source ~/.vim/snippits.vim
 nmap <silent> <LEADER>mp <Plug>MarkdownPreview
 " for insert mode
 nmap <silent> <LEADER>mp <Plug>MarkdownPreview
