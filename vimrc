@@ -122,6 +122,15 @@ Plug 'DataWraith/auto_mkdir'
 " Usage :Smile
 Plug 'dstein64/vim-smile'
 
+" ncm2
+Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2-jedi'
+Plug 'ncm2/ncm2-github'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-match-highlight'
+Plug 'ncm2/ncm2-markdown-subscope'
+
 call plug#end()
 
 " Clipboard
