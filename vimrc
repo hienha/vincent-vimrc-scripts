@@ -394,7 +394,6 @@ let b:ale_fixers = ['autopep8', 'yapf']
 " === Taglist
 " ===
 map <silent> T :TagbarOpenAutoClose<CR>
-map <LEADER>tc :TagbarClose<CR>
 
 " ===
 " === MarkdownPreview
