@@ -394,6 +394,7 @@ let b:ale_fixers = ['autopep8', 'yapf']
 " === Taglist
 " ===
 map <silent> T :TagbarOpenAutoClose<CR>
+map <LEADER>tc :TagbarClose<CR>
 
 " ===
 " === MarkdownPreview
@@ -402,6 +403,10 @@ map <silent> T :TagbarOpenAutoClose<CR>
 source ~/.vim/snippits.vim
 nnoremap <silent> <LEADER>mp    :MarkdownPreview<CR>
 nnoremap <silent> <LEADER>smp   :MarkdownPreviewStop<CR>
+" for insert mode
+inoremap <silent> <LEADER>mp    :MarkdownPreview<CR>
+inoremap <silent> <LEADER>smp   :MarkdownPreviewStop<CR>
+
 let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 1
 let g:mkdp_refresh_slow = 0
