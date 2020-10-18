@@ -400,13 +400,8 @@ map <silent> T :TagbarOpenAutoClose<CR>
 " ===
 " for normal mode
 source ~/.vim/snippits.vim
-nmap <silent> <LEADER>mp <Plug>MarkdownPreview
-" for insert mode
-nmap <silent> <LEADER>mp <Plug>MarkdownPreview
-" for normal mode
-nmap <silent> <LEADER>smp <Plug>StopMarkdownPreview
-" for insert mode
-nmap <silent> <LEADER>smp <Plug>StopMarkdownPreview
+nnoremap <silent> <LEADER>mp    :MarkdownPreview<CR>
+nnoremap <silent> <LEADER>smp   :MarkdownPreviewStop<CR>
 let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 1
 let g:mkdp_refresh_slow = 0
