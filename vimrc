@@ -171,7 +171,7 @@ set shiftwidth=2
 set softtabstop=2
 " 显示隐藏字符
 set list
-set listchars=eol:¬,tab:▶\ ·,trail:•,extends:>,precedes:<,space:␣
+set listchars=eol:¬,tab:▶\ ,trail:•,extends:>,precedes:<,space:␣
 " set listchars=tab:▶\ ,trail:•
 
 " 屏幕滚动上、下都保留5行
@@ -451,10 +451,10 @@ let g:indent_guides_start_level = 2
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_color_change_percent = 1
 let g:indent_guides_auto_colors = 1
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=white     ctermbg=3
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=lightgrey ctermbg=4
-hi IndentGuidesOdd  guibg=red   ctermbg=3
-hi IndentGuidesEven guibg=green ctermbg=4
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=white     ctermbg=11
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=lightgrey ctermbg=14
+hi IndentGuidesOdd  guibg=red   ctermbg=11
+hi IndentGuidesEven guibg=green ctermbg=14
 silent! unmap <LEADER>ig
 autocmd WinEnter * silent! unmap <LEADER>ig
 
