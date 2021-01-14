@@ -171,7 +171,7 @@ set shiftwidth=2
 set softtabstop=2
 " 显示隐藏字符
 set list
-set listchars=tab:▶\ ,trail:▬
+set listchars=tab:▶\ ,trail:•
 " 屏幕滚动上、下都保留5行
 set scrolloff=5
 
